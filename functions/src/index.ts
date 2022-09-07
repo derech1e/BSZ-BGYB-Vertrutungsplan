@@ -9,7 +9,7 @@ export const vplan =
         .https
         .onRequest((request, response) => {
           const url = "http://geschuetzt.bszet.de/s-lk-vw/Vertretungsplaene/vertretungsplan-bgy.pdf";
-          const auth = Buffer.from("bsz-et-2021:it-system#20").toString("base64");
+          const auth = Buffer.from("bsz-et-2223:sommer#22").toString("base64");
 
           const options: RequestOptions = {
             headers: {

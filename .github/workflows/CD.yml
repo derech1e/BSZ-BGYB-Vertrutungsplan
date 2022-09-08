@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: install dependencies
-        run: cd functions/ && npm install
+        run: cd functions/ && npm install && npm run build
 
       - name: create config json
         uses: jsdaniell/create-json@1.1.2

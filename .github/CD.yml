@@ -2,12 +2,7 @@
 
 name: Deploy
 
-# Controls when the workflow will run
-'on':
-  #triggers the workflow whenever a push is made to the main branch
-  push:
-    branches:
-      - master
+on: [push, pull_request, workflow_dispatch ]
 
 jobs:
   deploy_to_production:

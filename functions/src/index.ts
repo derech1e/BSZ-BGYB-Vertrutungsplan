@@ -8,34 +8,34 @@ export const vplan =
         .region("europe-west1")
         .https
         .onRequest((request, response) => {
-          const url = "http://geschuetzt.bszet.de/s-lk-vw/Vertretungsplaene/vertretungsplan-bgy.pdf";
-          const auth = Buffer.from("bsz-et-2223:sommer#22").toString("base64");
+            const url = "http://geschuetzt.bszet.de/s-lk-vw/Vertretungsplaene/vertretungsplan-bgy.pdf";
+            const auth = Buffer.from("bsz-et-2223:sommer#22").toString("base64");
 
-          const options: RequestOptions = {
-            headers: {
-              "Authorization": "Basic " + auth,
-            },
-          };
+            const options: RequestOptions = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                },
+            };
 
-          const req = http.get(url, options, (res) => {
-            const chunks: Array<Uint8Array> = [];
-            res.on("data", (chunk) => {
-              chunks.push(chunk);
+            const req = http.get(url, options, (res) => {
+                const chunks: Array<Uint8Array> = [];
+                res.on("data", (chunk) => {
+                    chunks.push(chunk);
+                });
+
+                res.on("end", () => {
+                    const buffer = Buffer.concat(chunks);
+                    const stream = new Readable();
+                    stream.push(buffer);
+                    stream.push(null);
+                    response.set({
+                        "Content-Type": "application/pdf",
+                        "Content-Length": buffer.length,
+                    });
+                    stream.pipe(response);
+                });
             });
-
-            res.on("end", () => {
-              const buffer = Buffer.concat(chunks);
-              const stream = new Readable();
-              stream.push(buffer);
-              stream.push(null);
-              response.set({
-                "Content-Type": "application/pdf",
-                "Content-Length": buffer.length,
-              });
-              stream.pipe(response);
+            req.on("error", (err) => {
+                functions.logger.error(err, {structuredData: true});
             });
-          });
-          req.on("error", (err) => {
-            functions.logger.error(err, {structuredData: true});
-          });
         });

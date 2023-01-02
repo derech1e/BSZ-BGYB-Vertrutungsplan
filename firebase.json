@@ -9,7 +9,8 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "vplan"
+        "function": "vplan",
+        "region": "europe-west1"
       }
     ]
   },

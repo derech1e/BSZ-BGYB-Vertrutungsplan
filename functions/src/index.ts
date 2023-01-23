@@ -32,7 +32,7 @@ export const vplan =
                 res.on("end", () => {
                     const buffer = Buffer.concat(chunks);
                     let text = new TextDecoder().decode(buffer);
-                    const appUrl = `http://${request.header('host')}/${process.env.GCLOUD_PROJECT}/europe-west1/${process.env.FUNCTION_TARGET}`;
+                    const appUrl = `http://${request.header('host')}/`;
                     const regexMatch = text.match(/V_DC_00[1-9]\.html|index\.html/g);
                     regexMatch?.map((item) => {
                         text = text.replace(item, `${appUrl}?target=${item}`);
